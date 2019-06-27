@@ -1,4 +1,3 @@
-require 'pry'
 class Pokemon
 
   attr_accessor :name, :type, :db, :hp
@@ -32,6 +31,7 @@ class Pokemon
 
   # Update pokemon health points
   def alter_hp(new_hp, db)
+    self.hp = new_hp
     sql = <<-SQL
       UPDATE pokemon 
       SET hp = ?
