@@ -26,7 +26,8 @@ class Pokemon
       LIMIT 1
     SQL
     # Create new pokemon object from row
-    db.execute(sql, id).map { |row| self.new(id:row[0], name:row[1], type:row[2], hp:row[3], db:db) }.first
+    row = db.execute(sql, id).first
+    self.new(id:row[0], name:row[1], type:row[2], hp:row[3], db:db)
   end
 
   # Update pokemon health points
