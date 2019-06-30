@@ -1,6 +1,6 @@
 class Pokemon
-    attr_accessor :name, :type, :db, :hp
-    attr_reader :id
+    attr_accessor :id, :name, :type, :db, :hp
+  
 
     def initialize(id: nil, name:, type:, db:, hp: nil)
         @id = id
@@ -19,7 +19,7 @@ class Pokemon
         SELECT * FROM pokemon WHERE id = ?
         SQL
         arr = db.execute(sql, id).first
-        Pokemon.new(id: id, name: arr[1], type: arr[2], db: db)
+        Pokemon.new(id: id, name: arr[1], type: arr[2], db: db, hp: arr[3])
 
     end
 
@@ -40,8 +40,9 @@ class Pokemon
     #       SET hp = ?
     #       WHERE id = ?
     #     SQL
-    #     db.execute(sql, health, @id)
-    #   end
+    #     db.execute(sql, health, self.id)
+    #     self.hp = health
+    # end
 
     def alter_hp(health, db)
         db.execute("UPDATE pokemon SET hp = ? WHERE id = ?", health, self.id)
