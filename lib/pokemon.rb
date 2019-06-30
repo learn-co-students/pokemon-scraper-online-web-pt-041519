@@ -1,22 +1,17 @@
 class Pokemon
-    attr_accessor :name, :type, :db
+    attr_accessor :name, :type, :db, :hp
     attr_reader :id
 
-    def initialize(id: nil, name:, type:, db:)
+    def initialize(id: nil, name:, type:, db:, hp: nil)
         @id = id
         @name = name
         @type = type
         @db = db
+        @hp = hp
     end
 
     def self.save(name, type, db)
-        sql = <<-SQL
-        INSERT INTO pokemon (name, type)
-        VALUES (?, ?)
-        SQL
-        #binding.pry
-        db.execute(sql, name, type)
-        @id = db.execute("SELECT last_insert_rowid() FROM pokemon")[0][0]
+        db.execute("INSERT INTO pokemon (name, type) VALUES (?, ?)", name, type)
     end
 
 
