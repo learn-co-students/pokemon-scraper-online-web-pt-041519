@@ -37,16 +37,32 @@ class Pokemon
   new_pokemon  # return the newly created instance
 end
 
+# this works too
+	# def self.find(id, db)
+	# 	sql = "SELECT * FROM pokemon WHERE id = ?"
+
+	# 	# to continue
+	# 	db.execute(sql, id).map do |row|
+ #      self.new_from_db(row)
+ #  end.first
+	# 	# self.save
+	# end
+
+
+
+
 	def self.find(id, db)
 		sql = "SELECT * FROM pokemon WHERE id = ?"
 
 		# to continue
-		db.execute(sql, id).map do |row|
-      self.new_from_db(row)
-  end.first
+		row = db.execute(sql, id).flatten
+		new_pokemon = self.new(id:row[0], name:row[1], type:row[2], hp:row[3], db:db)  # self.new is the same as running Song.ne
+  # new_pokemon.id = row[0]
+  # new_pokemon.name =  row[1]
+  # new_pokemon.type = row[2]
+  # new_pokemon  # return the newly created instance
 		# self.save
 	end
-
 
 
 	def alter_hp(hp, db)
